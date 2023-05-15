@@ -108,23 +108,23 @@ class TestMain:
         ])
 
         mock_avro_encoder_constructor.assert_has_calls([
-            mocker.call('https://test_schema_url/PtypeCode'),
-            mocker.call('https://test_schema_url/Pcode3Code'),
-            mocker.call('https://test_schema_url/ItypeCode'),
-            mocker.call('https://test_schema_url/ItemStatusCode'),
-            mocker.call('https://test_schema_url/StatGroupCode'),
-            mocker.call('https://test_schema_url/LocationCode')
+            mocker.call('https://test_schema_url/SierraPtypeCode'),
+            mocker.call('https://test_schema_url/SierraPcode3Code'),
+            mocker.call('https://test_schema_url/SierraItypeCode'),
+            mocker.call('https://test_schema_url/SierraItemStatusCode'),
+            mocker.call('https://test_schema_url/SierraStatGroupCode'),
+            mocker.call('https://test_schema_url/SierraLocationCode')
         ])
         mock_avro_encoder.encode_batch.assert_has_calls(
             [mocker.call(response) for response in _TEST_SIERRA_RESPONSES])
 
         mock_kinesis_client_constructor.assert_has_calls([
-            mocker.call('test_kinesis_stream:PtypeCode-test', 2),
-            mocker.call('test_kinesis_stream:Pcode3Code-test', 2),
-            mocker.call('test_kinesis_stream:ItypeCode-test', 2),
-            mocker.call('test_kinesis_stream:ItemStatusCode-test', 2),
-            mocker.call('test_kinesis_stream:StatGroupCode-test', 2),
-            mocker.call('test_kinesis_stream:LocationCode-test', 2)
+            mocker.call('test_kinesis_stream:SierraPtypeCode-test', 2),
+            mocker.call('test_kinesis_stream:SierraPcode3Code-test', 2),
+            mocker.call('test_kinesis_stream:SierraItypeCode-test', 2),
+            mocker.call('test_kinesis_stream:SierraItemStatusCode-test', 2),
+            mocker.call('test_kinesis_stream:SierraStatGroupCode-test', 2),
+            mocker.call('test_kinesis_stream:SierraLocationCode-test', 2)
         ])
         mock_kinesis_client.send_records.assert_has_calls(
             [mocker.call([b'1', b'2', b'3'])]*6)

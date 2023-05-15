@@ -8,18 +8,18 @@ from nypl_py_utils.functions.log_helper import create_log
 from psycopg.rows import dict_row
 
 _QUERY_MAP = {
-    'PtypeCode': ('SELECT value AS code, name AS description FROM '
-                  'sierra_view.ptype_property_myuser;'),
-    'Pcode3Code': ('SELECT code, name AS description FROM '
-                   'sierra_view.user_defined_pcode3_myuser;'),
-    'ItypeCode': ('SELECT code, name AS description FROM '
-                  'sierra_view.itype_property_myuser;'),
-    'ItemStatusCode': ('SELECT code, name AS description FROM '
-                       'sierra_view.item_status_property_myuser;'),
-    'StatGroupCode':
+    'SierraPtypeCode': ('SELECT value AS code, name AS description FROM '
+                        'sierra_view.ptype_property_myuser;'),
+    'SierraPcode3Code': ('SELECT code, name AS description FROM '
+                         'sierra_view.user_defined_pcode3_myuser;'),
+    'SierraItypeCode': ('SELECT code, name AS description FROM '
+                        'sierra_view.itype_property_myuser;'),
+    'SierraItemStatusCode': ('SELECT code, name AS description FROM '
+                             'sierra_view.item_status_property_myuser;'),
+    'SierraStatGroupCode':
         ('SELECT code AS terminal_code, location_code, name AS description '
          'FROM sierra_view.statistic_group_myuser;'),
-    'LocationCode': '''
+    'SierraLocationCode': '''
         SELECT DISTINCT location.code AS location_code, branch_myuser.name AS
             branch_name, location_name.name AS description
         FROM sierra_view.location
