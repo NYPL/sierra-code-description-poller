@@ -10,7 +10,7 @@ help:
 	@echo "make lint"
 	@echo "    lint project files using the flake8 linter"
 
-run-hours:
+run:
 	export ENVIRONMENT=devel; \
 	python main.py
 
