@@ -1,0 +1,4 @@
+flake8
+nypl-py-utils[avro-encoder,kinesis-client,postgresql-client,config-helper]==1.0.1
+pytest
+pytest-mock
