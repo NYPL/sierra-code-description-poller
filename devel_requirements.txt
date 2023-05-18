@@ -1,0 +1,6 @@
+flake8
+freezegun
+nypl-py-utils[kms-client,postgresql-client,redshift-client,config-helper]==1.0.1
+pandas
+pytest
+pytest-mock

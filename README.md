@@ -1,25 +1,20 @@
-# SierraCodePoller
+# SierraCodeDescriptionPoller
 
-The SierraCodePoller periodically checks Sierra for descriptions of various codes and sends the results to Kinesis streams for ingest into the [BIC](https://github.com/NYPL/BIC)
+This repository contains the code used by the [SierraCodeDescriptionPoller-qa](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/SierraCodeDescriptionPoller-qa?tab=code) and [SierraCodeDescriptionPoller-production](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/SierraCodeDescriptionPoller-production?tab=code) AWS lambda functions. The poller periodically checks Sierra for descriptions of various codes, compares these codes to what's stored in the [BIC](https://github.com/NYPL/BIC), and updates the BIC appropriately for new/updated/deprecated codes.
 
 ## Running locally
 * `cd` into this directory
-* Add your `AWS_PROFILE` to the config file for the environment you want to run
+* Install all the required packages in `devel_requirements.txt` in a virtual environment
+* Add your `AWS_PROFILE` to `config/devel.yaml`
   * Alternatively, you can manually export it (e.g. `export AWS_PROFILE=nypl-digital-dev`)
-* Run `ENVIRONMENT=<env> python3 main.py`
+* Run `ENVIRONMENT=<env> python main.py`
   * `<env>` should be the config filename without the `.yaml` suffix
   * `make run` will run the poller using the development environment
-* Alternatively, to build and run a Docker container, run:
-```
-docker image build -t sierra-code-poller:local .
-
-docker container run -e ENVIRONMENT=<env> -e AWS_PROFILE=<aws_profile> sierra-code-poller:local
-```
 
 ## Git workflow
 This repo uses the [Main-QA-Production](https://github.com/NYPL/engineering-general/blob/main/standards/git-workflow.md#main-qa-production) git workflow.
 
-[`main`](https://github.com/NYPL/sierra-code-poller/tree/main) has the latest and greatest commits, [`qa`](https://github.com/NYPL/sierra-code-poller/tree/qa) has what's in our QA environment, and [`production`](https://github.com/NYPL/sierra-code-poller/tree/production) has what's in our production environment.
+[`main`](https://github.com/NYPL/sierra-code-description-poller/tree/main) has the latest and greatest commits, [`qa`](https://github.com/NYPL/sierra-code-description-poller/tree/qa) has what's in our QA environment, and [`production`](https://github.com/NYPL/sierra-code-description-poller/tree/production) has what's in our production environment.
 
 ### Ideal Workflow
 - Cut a feature branch off of `main`
@@ -33,10 +28,10 @@ This repo uses the [Main-QA-Production](https://github.com/NYPL/engineering-gene
 - Deploy app to production and confirm it works
 
 ## Deployment
-N/A
+CI/CD is not enabled. To deploy a new version of this function, first modify the code in the git repo and open a pull request to the appropriate environment branch. Then run `source deployment_script.sh` and upload the resulting zip. Note that if any files are added or deleted, this script must be modified. For more information, see the directions [here](https://docs.aws.amazon.com/lambda/latest/dg/python-package.html).
 
 ## Environment variables
-Note that the QA and production env files are actually read by the deployed service, so do not change these files unless you want to change how the service will behave in the wild -- these are not meant for local testing.
+For non-devel environments, these variables are set in the Lambda.
 
 | Name        | Notes           |
 | ------------- | ------------- |
@@ -46,8 +41,8 @@ Note that the QA and production env files are actually read by the deployed serv
 | `SIERRA_DB_HOST` | Encrypted Sierra host (either local, QA, or prod) |
 | `SIERRA_DB_USER` | Encrypted Sierra user. There is only one user for this application, so this is always the same. |
 | `SIERRA_DB_PASSWORD` | Encrypted Sierra password for the user. There is only one user for this application, so this is always the same. |
-| `BASE_SCHEMA_URL` | Base URL for the Platform API endpoint from which to retrieve the Avro schemas |
-| `KINESIS_BATCH_SIZE` | How many records should be sent to Kinesis at once. Kinesis supports up to 500 records per batch. |
-| `BASE_KINESIS_STREAM_ARN` | Encrypted base ARN for the Kinesis streams the poller sends the encoded data to |
-| `IGNORE_KINESIS` (optional) | Whether sending records to Kinesis should not be done. If this is `True`, then the `BASE_KINESIS_STREAM_ARN` variable is not necessary. |
+| `REDSHIFT_DB_NAME` | Which Redshift database to query (either `dev`, `qa`, or `production`) |
+| `REDSHIFT_DB_HOST` | Encrypted Redshift cluster endpoint |
+| `REDSHIFT_DB_USER` | Encrypted Redshift user |
+| `REDSHIFT_DB_PASSWORD` | Encrypted Redshift password for the user |
 | `LOG_LEVEL` (optional) | What level of logs should be output. Set to `info` by default. |
