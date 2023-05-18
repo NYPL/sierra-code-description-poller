@@ -12,7 +12,7 @@ help:
 
 run:
 	export ENVIRONMENT=devel; \
-	python main.py
+	python -c 'import lambda_function; lambda_function.lambda_handler(None, None)'
 
 test:
 	pytest

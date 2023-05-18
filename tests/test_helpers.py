@@ -12,7 +12,11 @@ class TestHelpers:
         'SIERRA_DB_NAME': 'test_sierra_name',
         'SIERRA_DB_HOST': 'test_sierra_host',
         'SIERRA_DB_USER': 'test_sierra_user',
-        'SIERRA_DB_PASSWORD': 'test_sierra_password'
+        'SIERRA_DB_PASSWORD': 'test_sierra_password',
+        'REDSHIFT_DB_NAME': 'test_db',
+        'REDSHIFT_DB_HOST': 'test_redshift_host',
+        'REDSHIFT_DB_USER': 'test_redshift_user',
+        'REDSHIFT_DB_PASSWORD': 'test_redshift_password'
     }
 
     @classmethod
