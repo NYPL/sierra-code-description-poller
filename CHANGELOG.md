@@ -1,3 +1,8 @@
+## 2023-05-19 -- v0.0.3
+### Fixed
+- Changed deployment to allow for use of psycopg
+- Use None instead of pd.NA to allow for Redshift to insert NULL values
+
 ## 2023-05-18 -- v0.0.2
 ### Added
 - Converted to Lambda function
