@@ -1,2 +1,3 @@
 nypl-py-utils[postgresql-client]==1.0.1
+PyYAML
 redshift-connector

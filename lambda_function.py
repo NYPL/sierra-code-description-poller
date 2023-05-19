@@ -94,6 +94,7 @@ def lambda_handler(event, context):
             insert_query = build_redshift_insert_query(
                 redshift_table, fresh_codes_df.shape[1] - 1)
             for row in fresh_codes_df.values:
+                row = [x if pd.notnull(x) else None for x in row]
                 queries.append((insert_query, row[:-1]))
 
         if len(queries) > 0:

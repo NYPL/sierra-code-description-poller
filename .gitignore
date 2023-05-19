@@ -1,6 +1,8 @@
 .DS_Store
 .vscode/
 __pycache__/
+deployment-package.zip
+*package/
 *env/
 *.py[cod]
 *$py.class
