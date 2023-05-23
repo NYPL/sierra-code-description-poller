@@ -1,3 +1,7 @@
+## 2023-05-22 -- v0.0.4
+### Fixed
+- Trim descriptions and any string codes
+
 ## 2023-05-19 -- v0.0.3
 ### Fixed
 - Changed deployment to allow for use of psycopg

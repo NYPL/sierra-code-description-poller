@@ -117,21 +117,24 @@ class TestLambdaFunction:
         assert mock_sierra_client.close_connection.call_count == 6
         mock_sierra_client.execute_query.assert_has_calls([
             mocker.call(
-                'SELECT value, name FROM sierra_view.ptype_property_myuser;'),
+                'SELECT value, TRIM(name) FROM '
+                'sierra_view.ptype_property_myuser;'),
             mocker.call(
-                'SELECT code, name FROM '
+                'SELECT TRIM(code), TRIM(name) FROM '
                 'sierra_view.user_defined_pcode3_myuser;'),
             mocker.call(
-                'SELECT code, name FROM sierra_view.itype_property_myuser;'),
+                'SELECT code, TRIM(name) FROM '
+                'sierra_view.itype_property_myuser;'),
             mocker.call(
-                'SELECT code, name FROM '
+                'SELECT TRIM(code), TRIM(name) FROM '
                 'sierra_view.item_status_property_myuser;'),
             mocker.call(
-                'SELECT code, location_code, name FROM '
+                'SELECT code, TRIM(location_code), TRIM(name) FROM '
                 'sierra_view.statistic_group_myuser;'),
             mocker.call(
                 '''
-SELECT location_myuser.code, location_myuser.name, branch_myuser.name
+SELECT TRIM(location_myuser.code), TRIM(location_myuser.name),
+    TRIM(branch_myuser.name)
 FROM sierra_view.location_myuser
 LEFT JOIN sierra_view.branch_myuser
     ON location_myuser.branch_code_num = branch_myuser.code;''')

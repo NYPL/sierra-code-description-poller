@@ -1,17 +1,20 @@
 QUERY_MAP = {
     'sierra_ptype_codes':
-        'SELECT value, name FROM sierra_view.ptype_property_myuser;',
+        'SELECT value, TRIM(name) FROM sierra_view.ptype_property_myuser;',
     'sierra_pcode3_codes':
-        'SELECT code, name FROM sierra_view.user_defined_pcode3_myuser;',
+        ('SELECT TRIM(code), TRIM(name) '
+         'FROM sierra_view.user_defined_pcode3_myuser;'),
     'sierra_itype_codes':
-        'SELECT code, name FROM sierra_view.itype_property_myuser;',
+        'SELECT code, TRIM(name) FROM sierra_view.itype_property_myuser;',
     'sierra_item_status_codes':
-        'SELECT code, name FROM sierra_view.item_status_property_myuser;',
+        ('SELECT TRIM(code), TRIM(name) '
+         'FROM sierra_view.item_status_property_myuser;'),
     'sierra_stat_group_codes':
-        ('SELECT code, location_code, name '
+        ('SELECT code, TRIM(location_code), TRIM(name) '
          'FROM sierra_view.statistic_group_myuser;'),
     'sierra_location_codes': '''
-SELECT location_myuser.code, location_myuser.name, branch_myuser.name
+SELECT TRIM(location_myuser.code), TRIM(location_myuser.name),
+    TRIM(branch_myuser.name)
 FROM sierra_view.location_myuser
 LEFT JOIN sierra_view.branch_myuser
     ON location_myuser.branch_code_num = branch_myuser.code;'''
